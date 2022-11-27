@@ -4,18 +4,27 @@
     <input type="text" class="form-control" name="nome"
     id="nome" placeholder="Nome" [(ngModel)]="usuario.nome"
     required #nome>
-   <div>
-    {{ nome.className }}
+     <!--  <div>
+      {{ nome.className }}
+     </div> -->
+     <span class="glyphicon glyphicon-remove form-control-feedback"
+      aria-hidden="true"></span>
+      <span id="nome" class="sr-only" *ngIf="!nome && nome touched"></span>
+   <div class="alert alert-danger" role="alert">
+    Nome é Obrigatório.
    </div>
-
-  </div><br>
+  </div>
 
   <div class="form-group">
     <label for="email">E-mail</label>
     <input type="email" class="form-control" name="email"
     id="email" placeholder="Seu@e-mail.com"[(ngModel)]="usuario.email"
     required="email">
-  </div><br>
+    <div class="alert alert-danger" role="alert">
+      E-mail é Obrigatório.
+     </div>
+  </div>
 
-  <button type="submit" class="btn btn-primary">Enviar</button>
+  <button type="submit" class="btn btn-primary"
+   [disabled]="!f.valid">Enviar</button>
 </form>
