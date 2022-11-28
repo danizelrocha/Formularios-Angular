@@ -11,8 +11,7 @@ import { TemplateFormModule } from './template-form/template-form.module';
 @NgModule({
   declarations: [
     AppComponent,
-    DataFormComponent,
-
+    DataFormComponent
   ],
   imports: [
     BrowserModule,
