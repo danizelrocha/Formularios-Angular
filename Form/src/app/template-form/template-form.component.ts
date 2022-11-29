@@ -39,6 +39,7 @@ export class TemplateFormComponent implements OnInit {
       let validacep = /^[0-9]{8}$/;
 
       if (validacep.test(cep)) {
+        this.resetarDadosForm(form);
         this.http.get(`//viacep.com.br/ws/${cep}/json/`)
           .pipe(map((dados: any) => dados))
           .subscribe(dados =>  this.populaDadosForm(dados,  form));
@@ -73,6 +74,18 @@ export class TemplateFormComponent implements OnInit {
       }
     });
    /*  console.log(form); */
+  }
+
+  resetarDadosForm(formulario:any){
+    formulario.form.patchValue({
+    endereco: {
+      rua: null ,
+      complemento: null ,
+      bairro: null ,
+      cidade: null ,
+      estado: null
+    }
+  });
   }
 }
 
