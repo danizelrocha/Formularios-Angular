@@ -55,8 +55,7 @@
           [ngModel]="usuario.Cep"
           required
           #cep="ngModel"
-          (blur)="consultaCEP(cep.value)"
-
+          (blur)="consultaCEP(cep.value, f)"
         />
 
         <!-- (blur)="consultaCEP($event.target.value)" -->
@@ -109,7 +108,7 @@
           id="rua"
           name="rua"
           placeholder="Nome da rua"
-          [ngModel]="usuario.rua"
+          ngModel
           required
           #rua="ngModel"
         />

@@ -13,8 +13,8 @@ export class TemplateFormComponent implements OnInit {
     email: null,
   };
 
-  onSubmit(form: any) {
-    console.log(form);
+  onSubmit(formulario: any) {
+    console.log(formulario);
     console.log(this.usuario);
   }
 
@@ -33,25 +33,51 @@ export class TemplateFormComponent implements OnInit {
     };
   }
 
-  consultaCEP(cep: any) {
+  consultaCEP(cep: any, form:any) {
     cep = cep.replace(/\D/g, '');
     if (cep != null && cep !== '') {
       let validacep = /^[0-9]{8}$/;
 
       if (validacep.test(cep)) {
-        this.http
-          .get(`//viacep.com.br/ws/${cep}/json/`)
+        this.http.get(`//viacep.com.br/ws/${cep}/json/`)
           .pipe(map((dados: any) => dados))
-          .subscribe((dados) => console.log(dados));
+          .subscribe(dados =>  this.populaDadosForm(dados,  form));
       }
     }
   }
-  /*  consultaCEP(cep: any) {
-    cep = cep.replace(/\D/g,'');
-    if (cep!==''){
-      this.http
-      .get(`//viacep.com.br/ws/${cep}/json/`)
-      .subscribe(dados=>console.log(dados));
-    }
-  } */
+
+  populaDadosForm(dados:any, formulario:any){
+   /*  formulario.setVallue({
+      nome:formulario.value.nome,
+      email:formulario.value.email,
+      endereco: {
+        rua: dados.logradouro ,
+        cep: dados.cep ,
+        numero: '' ,
+        complemento: dados.complemento ,
+        bairro: dados.bairro ,
+        cidade: dados.localidade ,
+        estado: dados.uf
+      }
+    });*/
+
+    formulario.form.patchValue({
+
+      endereco: {
+        rua: dados.logradouro ,
+        cep: dados.cep ,
+        complemento: dados.complemento ,
+        bairro: dados.bairro ,
+        cidade: dados.localidade ,
+        estado: dados.uf
+      }
+    });
+   /*  console.log(form); */
+  }
 }
+
+
+
+
+
+
