@@ -22,7 +22,7 @@ export class TemplateFormComponent implements OnInit {
     .subscribe(dados => { console.log(dados);
     });
   }
-
+/*novo codgo*/
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {}
