@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-data-form',
@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class DataFormComponent implements OnInit {
 
-  formulario: FormGroup | undefined;
+  formulario!:FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -24,5 +24,4 @@ export class DataFormComponent implements OnInit {
       email:[null]
     });
   }
-
 }
