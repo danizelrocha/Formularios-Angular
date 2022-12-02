@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { error } from 'console';
 import { map } from 'rxjs';
 
 @Component({
@@ -35,7 +36,16 @@ export class DataFormComponent implements OnInit {
 
      this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
     .pipe(map((dados: any) => dados))
-    .subscribe(dados => { console.log(dados);
-    });
+    .subscribe(dados => {
+      console.log(dados);
+      //reseta o form
+     /*  this.formulario.reset(); */
+     this.resetar();
+    },
+    (error: any) => alert('error'));
+  }
+
+  resetar(){
+    this.formulario.reset();
   }
 }
