@@ -11,6 +11,7 @@ import { map } from 'rxjs';
 export class DataFormComponent implements OnInit {
 
   formulario!:FormGroup;
+  resetar: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +45,30 @@ export class DataFormComponent implements OnInit {
     (error: any) => alert('error'));
   }
 
-  resetar(){
+  /* resetar(){
     this.formulario.reset();
+  }
+
+  verificaValidTouched(campo: string | (string | number)[]) {
+
+    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
+
+  } */
+
+  verificaValidTouched(campo:any){
+    return !this.formulario.controls[campo].valid && this.formulario.controls[campo].touched;
+  }
+
+  /* aplicaCssError(campo: string){
+    return {
+      'has-error': this.verificaValidTouched(campo),
+    }
+  } */
+
+  aplicaCssErro(campo:any) {
+    return {
+      'has-error': this.verificaValidTouched(campo),
+      'has-feedback': this.verificaValidTouched(campo)
+    }
   }
 }
