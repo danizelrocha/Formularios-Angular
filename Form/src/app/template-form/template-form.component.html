@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="form-horizontal">
+<form class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f)">
   <div class="form-group" [ngClass]="aplicaCssErro(name)">
     <div class="col-md-12">
       <label for="Nome" class="control-label">Nome:</label>
@@ -42,7 +42,6 @@
       </app-campo-control-erro>
     </div>
   </div>
-
   <div ngModelGroup="endereco">
     <div class="form-group">
       <div class="col-md-3" [ngClass]="aplicaCssErro(cep)">
@@ -57,17 +56,13 @@
           #cep="ngModel"
           (blur)="consultaCEP(cep.value, f)"
         />
-
         <!-- (blur)="consultaCEP($event.target.value)" -->
-
         <app-campo-control-erro
           [mostrarErro]="verificaValidTouched(cep)"
           msgErro="Cep é obrigatório."
         >
         </app-campo-control-erro>
       </div>
-    </div>
-    <div class="form-group">
       <div class="col-md-3" [ngClass]="aplicaCssErro(numero)">
         <label for="numero" class="control-label">Número:</label>
         <input
@@ -85,8 +80,6 @@
         >
         </app-campo-control-erro>
       </div>
-    </div>
-    <div class="form-group">
       <div class="col-md-6">
         <label for="complemento" class="control-label">Complemento:</label>
         <input
@@ -137,8 +130,6 @@
         msgErro="Bairro é obrigatório."
       >
       </app-campo-control-erro>
-    </div>
-    <div class="form-group">
       <div class="col-md-4" [ngClass]="aplicaCssErro(cidade)">
         <label for="cidade" class="control-label">Cidade:</label>
         <input
@@ -156,8 +147,6 @@
         >
         </app-campo-control-erro>
       </div>
-    </div>
-    <div class="form-group">
       <div class="col-md-3" [ngClass]="aplicaCssErro(estado)">
         <label for="estado" class="control-label">Estado:</label>
         <input
