@@ -59,11 +59,11 @@ export class DataFormComponent implements OnInit {
     return !this.formulario.controls[campo].valid && this.formulario.controls[campo].touched;
   }
 
-  /* aplicaCssError(campo: string){
+  aplicaCssError(campo: string){
     return {
       'has-error': this.verificaValidTouched(campo),
     }
-  } */
+  }
 
   aplicaCssErro(campo:any) {
     return {

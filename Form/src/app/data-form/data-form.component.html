@@ -18,7 +18,6 @@
     >
     </app-campo-control-erro>
     </div>
-
   </div>
   <div class="form-group" [ngClass]="aplicaCssErro('nome')">
     <div class="col-sm-12">
@@ -37,6 +36,11 @@
       msgErro="E-mail é obrigatório."
     >
     </app-campo-control-erro>
+    <app-campo-control-erro
+    [mostrarErro]="verificaValidTouched('email')"
+    msgErro="E-mail inválido."
+  >
+  </app-campo-control-erro>
     </div>
   </div>
   <br />
