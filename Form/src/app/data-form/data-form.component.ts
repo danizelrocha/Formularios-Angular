@@ -47,7 +47,7 @@ export class DataFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formulario.value);
+    console.log(this.formulario);
 
     this.http
       .post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
@@ -123,7 +123,7 @@ export class DataFormComponent implements OnInit {
     });
 
     this.formulario.get('nome')!.setValue('Daniel');
-    
+
     /*  console.log(form); */
   }
 
@@ -138,7 +138,6 @@ export class DataFormComponent implements OnInit {
     }
   });
   }
-
 }
 
 
