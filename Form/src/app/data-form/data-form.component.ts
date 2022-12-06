@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FormBuilder, FormControl, Validators, FormGroup} from '@angular/forms';
+import { pipe } from 'rxjs';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-data-form',
@@ -10,12 +12,12 @@ import { map } from 'rxjs';
 })
 export class DataFormComponent implements OnInit {
   formulario!: FormGroup;
-  resetar: any;
+  // resetar; Voltar AQUIIII
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
-     /* this.formulario = new FormGroup({
+    /* this.formulario = new FormGroup({
       nome: new FormControl(null),
       email: new FormControl(null),
 
@@ -41,7 +43,7 @@ export class DataFormComponent implements OnInit {
         rua: [null, Validators.required],
         bairro: [null, Validators.required],
         cidade: [null, Validators.required],
-        estado: [null, Validators.required]
+        estado: [null, Validators.required],
       }),
     });
   }
@@ -49,35 +51,46 @@ export class DataFormComponent implements OnInit {
   onSubmit() {
     console.log(this.formulario);
 
-    this.http
-      .post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
-      .pipe(map((dados: any) => dados))
-      .subscribe(
-        (dados) => {
-          console.log(dados);
-          //reseta o form
-          /*  this.formulario.reset(); */
-          this.resetar();
-        },
-        (error: any) => alert('error')
-      );
+     if(this.formulario.valid){
+       this.http.post('https://httpbin.org/post', JSON.stringify(this.formulario.value))
+       //.map(res => res)
+       .subscribe(
+        (dados: any) => {
+        console.log(dados);
+       })
+      } else {
+        console.log('formulario invalido');
+        this.verificaValidacoesForm(this.formulario);
+      }
   }
 
-  /* resetar(){
+  verificaValidacoesForm(_formGroup: FormGroup): void{
+    Object.keys(_formGroup.controls).forEach(campo => {
+      console.log(campo);
+      const controle = _formGroup.get(campo);
+      controle?.markAsDirty();
+      if (controle instanceof FormGroup) {
+        this.verificaValidacoesForm(controle);
+      }
+    });
+
+  }
+
+  resetar(): void{
     this.formulario.reset();
   }
 
-  verificaValidTouched(campo: string | (string | number)[]) {
-
-    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched;
-
-  } */
-
   verificaValidTouched(campo: string) {
     return (
-      !this.formulario.controls[campo].valid &&
-      this.formulario.controls[campo].touched
+      !this.formulario.get(campo)!.valid && (this.formulario.get(campo)?.touched || this.formulario.get(campo)?.dirty)
     );
+  }
+  verificaEmailInvalido(){
+    const campoEmail = this.formulario.get('email');
+    if (campoEmail?.errors) {
+      return campoEmail.errors['email'] && campoEmail.touched;
+
+    }
   }
 
   aplicaCssError(campo: any) {
@@ -94,7 +107,6 @@ export class DataFormComponent implements OnInit {
   }
 
   consultaCEP() {
-
     let cep = this.formulario.get('endereco.cep')?.value;
     cep = cep.replace(/\D/g, '');
     if (cep != null && cep !== '') {
@@ -102,24 +114,24 @@ export class DataFormComponent implements OnInit {
 
       if (validacep.test(cep)) {
         this.resetarDadosForm();
-        this.http.get(`//viacep.com.br/ws/${cep}/json/`)
+        this.http
+          .get(`//viacep.com.br/ws/${cep}/json/`)
           .pipe(map((dados: any) => dados))
-          .subscribe(dados =>  this.populaDadosForm(dados));
+          .subscribe((dados) => this.populaDadosForm(dados));
       }
     }
   }
 
-  populaDadosForm(dados:any){
-
+  populaDadosForm(dados: any) {
     this.formulario.patchValue({
       endereco: {
-         rua: dados.logradouro ,
-         //cep: dados.cep ,
-         complemento: dados.complemento ,
-         bairro: dados.bairro ,
-         cidade: dados.localidade ,
-         estado: dados.uf
-      }
+        rua: dados.logradouro,
+        //cep: dados.cep ,
+        complemento: dados.complemento,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf,
+      },
     });
 
     this.formulario.get('nome')!.setValue('Daniel');
@@ -127,19 +139,15 @@ export class DataFormComponent implements OnInit {
     /*  console.log(form); */
   }
 
-  resetarDadosForm(){
+  resetarDadosForm() {
     this.formulario.patchValue({
-    endereco: {
-      rua: null ,
-      complemento: null ,
-      bairro: null ,
-      cidade: null ,
-      estado: null
-    }
-  });
+      endereco: {
+        rua: null,
+        complemento: null,
+        bairro: null,
+        cidade: null,
+        estado: null,
+      },
+    });
   }
 }
-
-
-
-
