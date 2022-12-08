@@ -1,3 +1,4 @@
+import { DropdownService } from './../shared/service/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -10,11 +11,16 @@ import { runInThisContext } from 'vm';
   templateUrl: './data-form.component.html',
   styleUrls: ['./data-form.component.scss'],
 })
+
+
 export class DataFormComponent implements OnInit {
   formulario!: FormGroup;
-  // resetar; Voltar AQUIIII
+  estados: any;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private dropdownService: DropdownService) {}
 
   ngOnInit(): void {
     /* this.formulario = new FormGroup({
