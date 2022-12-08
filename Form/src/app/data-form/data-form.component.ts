@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { FormBuilder, FormControl, Validators, FormGroup} from '@angular/forms';
 import { pipe } from 'rxjs';
 import { runInThisContext } from 'vm';
+import { EstadoBr } from '../shared/models/estado-br';
 
 @Component({
   selector: 'app-data-form',
@@ -15,7 +16,7 @@ import { runInThisContext } from 'vm';
 
 export class DataFormComponent implements OnInit {
   formulario!: FormGroup;
-  estados: any;
+  estados: EstadoBr | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,6 +24,9 @@ export class DataFormComponent implements OnInit {
     private dropdownService: DropdownService) {}
 
   ngOnInit(): void {
+
+    this.dropdownService.getEstadoBr()
+    
     /* this.formulario = new FormGroup({
       nome: new FormControl(null),
       email: new FormControl(null),
