@@ -1,3 +1,4 @@
+import { ConsultaCepService } from './../shared/service/consulta-cep.service';
 import { DropdownService } from './../shared/service/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,8 @@ export class DataFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private dropdownService: DropdownService) {}
+    private dropdownService: DropdownService,
+    private cepService: ConsultaCepService) {}
 
   ngOnInit(): void {
 
