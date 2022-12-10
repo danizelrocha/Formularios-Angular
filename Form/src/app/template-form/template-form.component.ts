@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { ConsultaCepService } from '../shared/service/consulta-cep.service';
 
 @Component({
   selector: 'app-template-form',
@@ -26,7 +27,10 @@ export class TemplateFormComponent implements OnInit {
     });
   }
 /*novo codgo*/
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cepService: ConsultaCepService
+  ) {}
 
   ngOnInit(): void {}
 
