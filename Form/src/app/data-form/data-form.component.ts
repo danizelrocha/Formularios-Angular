@@ -15,6 +15,12 @@ import { Subscriber } from 'rxjs';
 
 
 export class DataFormComponent implements OnInit {
+  public get cepService(): ConsultaCepService {
+    return this._cepService;
+  }
+  public set cepService(value: ConsultaCepService) {
+    this._cepService = value;
+  }
   formulario!: FormGroup;
   estados: EstadoBr | undefined;
 
@@ -22,7 +28,8 @@ export class DataFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropdownService: DropdownService,
-    private cepService: ConsultaCepService) {}
+    private _cepService: ConsultaCepService
+    ) {}
 
   ngOnInit(): void {
 

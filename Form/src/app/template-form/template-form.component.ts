@@ -9,6 +9,12 @@ import { ConsultaCepService } from '../shared/service/consulta-cep.service';
   styleUrls: ['./template-form.component.scss'],
 })
 export class TemplateFormComponent implements OnInit {
+  public get cepService(): ConsultaCepService {
+    return this._cepService;
+  }
+  public set cepService(value: ConsultaCepService) {
+    this._cepService = value;
+  }
   usuario: any = {
     nome: null,
     email: null,
@@ -29,7 +35,7 @@ export class TemplateFormComponent implements OnInit {
 /*novo codgo*/
   constructor(
     private http: HttpClient,
-    private cepService: ConsultaCepService
+    private _cepService: ConsultaCepService
   ) {}
 
   ngOnInit(): void {}
