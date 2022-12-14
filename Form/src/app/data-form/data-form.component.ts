@@ -16,7 +16,7 @@ import { Subscriber } from 'rxjs';
 
 export class DataFormComponent implements OnInit {
   public get cepService(): ConsultaCepService {
-    return this._cepService;
+  return this._cepService;
   }
   public set cepService(value: ConsultaCepService) {
     this._cepService = value;
@@ -32,9 +32,10 @@ export class DataFormComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-
-    this.dropdownService.getEstadoBr()
-     .Subscribe((dados: EstadoBr | undefined) => { this.estados = dados; console.log(dados);});
+    this.dropdownService.getEstadoBr()  .Subscribe((dados: EstadoBr | undefined) => {
+      this.estados = dados;
+      console.log(dados);
+    });
 
     /* this.formulario = new FormGroup({
       nome: new FormControl(null),
