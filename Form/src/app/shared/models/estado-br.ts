@@ -1,5 +1,5 @@
-export class EstadoBr {
-	id: number | undefined;
-	sigla: string | undefined;
-	nome: string | undefined;
+export interface EstadoBr {
+	id: number;
+	sigla: string ;
+	nome: string ;
 }

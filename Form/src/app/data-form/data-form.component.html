@@ -120,7 +120,7 @@
           id="cidade"
           formControlName="cidade"
         >
-        <option *ngFor="let estado off estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
+        <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
         </select>
         <app-campo-control-erro
           [mostrarErro]="verificaValidTouched('endereco.cidade')"
