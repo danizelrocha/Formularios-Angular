@@ -120,7 +120,8 @@
           id="cidade"
           formControlName="cidade"
         >
-        <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
+        <option *ngFor="let estado of estados | async"
+        [value]="estado.sigla">{{ estado.nome }}</option>
         </select>
         <app-campo-control-erro
           [mostrarErro]="verificaValidTouched('endereco.cidade')"
@@ -144,9 +145,23 @@
       </div>
     </div>
   </div>
+
+  <div class="form-group">
+    <div class="col-md-3" [ngClass]="aplicaCssErro('cargo')">
+      <label for="cargo" class="control-label">Cargo:</label>
+      <section
+        class="form-control"
+        id="cargo"
+        formControlName="cargo"
+      >
+       <option *ngFor="let cargo of cargos"
+       [value]="cargo.sigla">{{ cargo.desc }}</option>
+      </section>
+    </div>
+  </div>
   <br />
   <button type="submit" class="btn btn-primary">Enviar</button>
   <button class="btn btn-secondary">Cancelar</button>
 
-<!--   <app-form-debug [Form]="formulario"></app-form-debug>
- --></form>
+  <app-form-debug [form]="formulario"></app-form-debug>
+ </form>

@@ -24,21 +24,25 @@ export class DataFormComponent implements OnInit {
   } */
   formulario!: FormGroup;
   /* estados: EstadoBr | undefined; */
-
   estados: any | EstadoBr[];
+  cargos: any[] | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropdownService: DropdownService,
-    private _cepService: ConsultaCepService
-    ) {}
+    private cepService: ConsultaCepService
+    ) { }
 
   ngOnInit(): void {
 
-     /* this.estados = this.dropdownService.getEstadoBr();
- */
-this.dropdownService.getEstadoBr().subscribe(dados => this.estados = dados);
+    this.estados = this.dropdownService.getEstadoBr();
+
+    this.cargos = this.dropdownService.getCargos();
+
+   /*  this.dropdownService.getEstadoBr().subscribe(dados => this.estados =
+    dados); */
+
    /*  this.dropdownService.getEstadoBr()  .Subscribe((dados: EstadoBr | undefined) => {
      this.estados = dados;
      console.log(dados);}); */
@@ -71,6 +75,8 @@ this.dropdownService.getEstadoBr().subscribe(dados => this.estados = dados);
         cidade: [null, Validators.required],
         estado: [null, Validators.required],
       }),
+
+      cargo: [null]
     });
   }
 
